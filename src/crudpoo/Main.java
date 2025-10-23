@@ -2,6 +2,9 @@ package crudpoo;
 
 import java.util.ArrayList;
 
+import gestionUsuarios.CrudUsuario;
+import gestionUsuarios.Usuario;
+
 // ============================================================================
 // Main (orquestador limpio)
 // ----------------------------------------------------------------------------
@@ -23,10 +26,14 @@ public class Main {
         //   - Porque Main actúa como un orquestador y no tiene lógica de negocio.
         final ArrayList<Producto> productos = new ArrayList<>();
         final ArrayList<Categoria> categorias = new ArrayList<>();
-
         categorias.add(new Categoria("Tecnología"));
         categorias.add(new Categoria("Hogar"));
         categorias.add(new Categoria("Libros"));
+
+        // dejo predefinido un par de usuarios y sus pass
+        final ArrayList<Usuario> usuarios = new ArrayList<>();
+        usuarios.add(new Usuario("matt","123456"));
+        usuarios.add(new Usuario("giiss","qwerty" ));
         
         // instanciamos los CRUDs con las listas compartidas
         // por qué pasamos las listas en el constructor?
@@ -48,8 +55,10 @@ public class Main {
         //   - Porque no hay riesgo de acceso indebido desde otras clases.
         final CrudProductos crudProd = new CrudProductos(productos, categorias);
         final CrudCategorias crudCat = new CrudCategorias(categorias);
-
-        int opcion;
+        // manejador de usuario
+         final CrudUsuario crudUsuarios = new CrudUsuario(usuarios);
+do {
+        int opcion; 
         do {
             System.out.println("\n=== Menú Principal ===");
             System.out.println("1) CRUD de Productos");
@@ -111,5 +120,6 @@ public class Main {
                 default -> System.out.println("Opción inválida");
             }
         } while (opcion != 0);
+        }while (logiado != 0);
     }
 }
