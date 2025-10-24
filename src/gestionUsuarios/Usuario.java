@@ -1,30 +1,34 @@
 package gestionUsuarios;
 
-public class Usuario extends Persona{
- 
-private String alias;
-private String password;
+public class Usuario extends Persona {
 
-public Usuario(String alias, String password) {
-    super();// con esto garantizo un id 
-    this.alias = alias;
-    this.password = password;
-}
+    private String alias;
+    private String password;
 
-public String getAlias() {
-    return alias;
-}
+    public Usuario(String alias, String password) {
+        super();// con esto garantizo un id
+        this.alias = alias;
+        this.password = password;
+    }
 
-public void setAlias(String alias) {
-    this.alias = alias;
-}
+    public String getAlias() {
+        return alias;
+    }
 
-public String getPassword() {
-    return password;
-}
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 
-public void setPassword(String password) {
-    this.password = password;
-}
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return this.alias + "  -  " + this.password;
+    }
 }

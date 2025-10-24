@@ -25,39 +25,47 @@ import java.util.Scanner;
 // ============================================================================
 public abstract class CrudConsola<T> {
     // cual es el constructor de la clase abstracta?
-    //   - No tiene un constructor explícito, pero Java crea uno por defecto.
-    //   - Las clases hijas pueden llamar al constructor de la superclase si es necesario.
-    //   - Las clases hijas deben implementar los métodos abstractos.
+    // - No tiene un constructor explícito, pero Java crea uno por defecto.
+    // - Las clases hijas pueden llamar al constructor de la superclase si es
+    // necesario.
+    // - Las clases hijas deben implementar los métodos abstractos.
     // por qué no definir un constructor aquí?
-    //   - Porque no hay atributos específicos que inicializar en la clase abstracta.
-    //   - Porque las clases hijas pueden tener sus propios atributos y constructores.
-    //   - Porque queremos mantener la clase abstracta lo más genérica posible.
-    
+    // - Porque no hay atributos específicos que inicializar en la clase abstracta.
+    // - Porque las clases hijas pueden tener sus propios atributos y constructores.
+    // - Porque queremos mantener la clase abstracta lo más genérica posible.
+
     // que es final?
-    //   - Es una palabra clave que indica que la variable no puede ser reasignada.
-    //   - Es una buena práctica para variables compartidas que no deben cambiar.
-    //   - Ayuda a evitar errores accidentales de reasignación.
+    // - Es una palabra clave que indica que la variable no puede ser reasignada.
+    // - Es una buena práctica para variables compartidas que no deben cambiar.
+    // - Ayuda a evitar errores accidentales de reasignación.
     // por qué usar final aquí?
-    //   - Porque el Scanner es un recurso compartido que no debe cambiar.
-    //   - Porque queremos asegurarnos de que todas las subclases usen el mismo Scanner.
-    //   - Porque mejora la legibilidad y el mantenimiento del código.
+    // - Porque el Scanner es un recurso compartido que no debe cambiar.
+    // - Porque queremos asegurarnos de que todas las subclases usen el mismo
+    // Scanner.
+    // - Porque mejora la legibilidad y el mantenimiento del código.
     // por qué no usar static?
-    //   - Porque no necesitamos que sea compartido entre todas las instancias.
-    //   - Porque cada instancia de CrudConsola puede tener su propio Scanner si es necesario.
-    //   - Porque no queremos que el Scanner persista más allá del ciclo de vida de la instancia.
+    // - Porque no necesitamos que sea compartido entre todas las instancias.
+    // - Porque cada instancia de CrudConsola puede tener su propio Scanner si es
+    // necesario.
+    // - Porque no queremos que el Scanner persista más allá del ciclo de vida de la
+    // instancia.
     // es mutable?
-    //   - No, la referencia es inmutable (final), pero el estado del Scanner sí puede cambiar.
-    //   - Podemos usar el Scanner para leer diferentes entradas sin problema.
-    //   - Podemos cerrar el Scanner si es necesario, pero no reasignarlo.
+    // - No, la referencia es inmutable (final), pero el estado del Scanner sí puede
+    // cambiar.
+    // - Podemos usar el Scanner para leer diferentes entradas sin problema.
+    // - Podemos cerrar el Scanner si es necesario, pero no reasignarlo.
     // qué pasa si lo cerramos?
-    //   - Si cerramos el Scanner, no podremos usarlo nuevamente para leer entradas.
-    //   - Si intentamos usar un Scanner cerrado, lanzará una excepción.
-    //   - Por eso, generalmente no cerramos el Scanner que lee de System.in.
+    // - Si cerramos el Scanner, no podremos usarlo nuevamente para leer entradas.
+    // - Si intentamos usar un Scanner cerrado, lanzará una excepción.
+    // - Por eso, generalmente no cerramos el Scanner que lee de System.in.
     protected final Scanner scanner = new Scanner(System.in); // Scanner compartido
 
     public abstract void crear();
+
     public abstract void listar();
+
     public abstract void actualizar();
+
     public abstract void eliminar();
 
     public void mostrarOpciones() {
@@ -69,16 +77,17 @@ public abstract class CrudConsola<T> {
         System.out.println("0) Volver/Salir");
         System.out.print("Opción: ");
     }
- 
 
     // por qué estos métodos?
-    //   - Porque son comunes a muchos CRUDs y evitan duplicación de código.
-    //   - Porque mejoran la experiencia de usuario al manejar errores de entrada.
-    //   - Porque facilitan la lectura y mantenimiento del código.
+    // - Porque son comunes a muchos CRUDs y evitan duplicación de código.
+    // - Porque mejoran la experiencia de usuario al manejar errores de entrada.
+    // - Porque facilitan la lectura y mantenimiento del código.
     // por qué no hacerlos estáticos?
-    //   - Porque usan el Scanner de instancia (no pueden ser estáticos).
-    //   - Porque podrían necesitar acceso a otros atributos/métodos de instancia en el futuro.
-    //   - Porque mantenerlos como instancia permite mayor flexibilidad y personalización.
+    // - Porque usan el Scanner de instancia (no pueden ser estáticos).
+    // - Porque podrían necesitar acceso a otros atributos/métodos de instancia en
+    // el futuro.
+    // - Porque mantenerlos como instancia permite mayor flexibilidad y
+    // personalización.
     protected int leerEntero(String mensaje) {
         while (true) {
             try {
@@ -104,6 +113,12 @@ public abstract class CrudConsola<T> {
     }
 
     protected String leerTexto(String mensaje) {
+        System.out.print(mensaje);
+        return scanner.nextLine();
+    }
+
+    // podria definir hasta cuantos caracteres debe tener por si hay restriciones
+    protected String leerTexto(String mensaje, int maxCaracteres) {
         System.out.print(mensaje);
         return scanner.nextLine();
     }
