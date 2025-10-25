@@ -11,22 +11,8 @@ import gestionUsuarios.Usuario;
 // Prepara listas en memoria y delega en CrudProductos / CrudCategorias.
 // ============================================================================
 public class Main {
-    public static void main(String[] args) {
-        // porque no son static?
-        // - Porque queremos instanciar objetos de estas clases.
-        // - Porque cada instancia puede tener su propio estado.
-        // - Porque no queremos que las listas persistan más allá del ciclo de vida de
-        // la instancia.
-        // son mutables?
-        // - Sí, podemos agregar, eliminar y modificar elementos en las listas.
-        // - La referencia es inmutable (final), pero el contenido de las listas sí
-        // puede cambiar.
-        // - Esto es útil para mantener el estado de los productos y categorías.
-        // porque no es private?
-        // - Porque queremos acceder a estas listas desde otras clases (CrudProductos,
-        // CrudCategorias).
-        // - Porque no necesitamos encapsular estas listas en la clase Main.
-        // - Porque Main actúa como un orquestador y no tiene lógica de negocio.
+    public static void main(String[] args) { 
+         
         final ArrayList<Producto> productos = new ArrayList<>();
         final ArrayList<Categoria> categorias = new ArrayList<>();
         categorias.add(new Categoria("Tecnología"));
@@ -38,34 +24,16 @@ public class Main {
         usuarios.add(new Usuario("matt", "123456"));
         usuarios.add(new Usuario("giiss", "qwerty"));
 
-        // instanciamos los CRUDs con las listas compartidas
-        // por qué pasamos las listas en el constructor?
-        // - Porque queremos que los CRUDs trabajen con las mismas listas.
-        // - Porque facilita la inyección de dependencias y el testing.
-        // - Porque evita el uso de variables globales o estáticas.
-        // que pasa si no las pasamos?
-        // - Los CRUDs no tendrían acceso a las listas y no podrían gestionar
-        // productos/categorías.
-        // - Tendríamos que usar variables estáticas o globales, lo cual es una mala
-        // práctica.
-        // - Perderíamos la flexibilidad y modularidad del código.
-        // que es inyección de dependencias?
-        // - Es un patrón de diseño que consiste en pasar las dependencias (listas)
-        // a un objeto en lugar de que el objeto las cree o busque por sí mismo.
-        // - Facilita el testing, ya que podemos pasar listas mock o de prueba.
-        // - Mejora la modularidad y separación de responsabilidades.
-        // porque no son private los crud?
-        // - Porque no necesitamos encapsularlos en la clase Main.
-        // - Porque Main actúa como un orquestador y no tiene lógica de negocio.
-        // - Porque no hay riesgo de acceso indebido desde otras clases.
+        
         final CrudProductos crudProd = new CrudProductos(productos, categorias);
         final CrudCategorias crudCat = new CrudCategorias(categorias);
         // manejador de usuario
         final CrudUsuario crudUsuarios = new CrudUsuario(usuarios);
         boolean logiado = false;
         String linea;
+         int opcion;
         do {
-            int opcion;
+           
             System.out.println("\n=== Menú Incial ===");
             System.out.println("1) Ingresar");
             System.out.println("2) Nuevo Usuario");
@@ -143,6 +111,6 @@ public class Main {
                         default -> System.out.println("Opción inválida");
                     }
                 } while (opcion != 0);
-        } while (logiado != false);
+        } while (opcion != 0);
     }
 }
